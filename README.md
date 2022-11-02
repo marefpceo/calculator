@@ -12,6 +12,8 @@ Online basic calculator. <br><br>
 - Divide
 - Percent
 
-*** <br><br>
+*** 
+
+<br><br>
 
 ![Screenshot of Online Calculator](/images/online-calculator.png)
