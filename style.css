@@ -60,18 +60,22 @@ button {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    inline-size: 400px;
+    overflow: hidden;
 }
 
 #screen-head {
     color: #333333;
     font-size: 20pt;
-    margin: 3px 3px 0px 0px;
+    margin: 3px 8px 0px 0px;
+    flex: 1;
 }
 
 #screen-body {
     color: #333333;
     font-size: 45pt;
-    margin: 10px 3px 0px 0px;
+    margin: 10px 10px 0px 0px;
+    flex: 1;
 }
 
 .button-panel {

@@ -1,71 +1,243 @@
-let total = 0;
-let operator = "";
-let input1 = 10;
-let input2 = 2;
+const screenBody = document.querySelector('#screen-body');
+const screenHead = document.querySelector('#screen-head');
+const buttons = document.querySelectorAll('button');
 
+
+let displayValue = [];
+let total = 0;
+let operator = '';
+let isCalculating = true;
+
+
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+
+        if(isCalculating === false) {
+            screenBody.textContent = '';
+            isCalculating = true;
+        }
+
+        switch (button.id) {
+            case 'clear':
+                clear();
+                break;
+            case 'zero':
+                screenBody.textContent += '0';
+                break;
+
+            case 'btn-1':
+                screenBody.textContent += '1';
+                break;
+            
+            case 'btn-2':
+                screenBody.textContent += '2';
+                break;
+
+            case 'btn-3':
+                screenBody.textContent += '3';
+                break;    
+            
+            case 'btn-4':
+                screenBody.textContent += '4';
+                break;
+                
+            case 'btn-5':
+                screenBody.textContent += '5';
+                break; 
+
+            case 'btn-6':
+                screenBody.textContent += '6';
+                break;       
+                
+            case 'btn-7':
+                screenBody.textContent += '7';
+                break;
+                
+            case 'btn-8':
+                screenBody.textContent += '8';
+                break;
+
+            case 'btn-9':
+                screenBody.textContent += '9';
+                break;    
+
+            case '%':
+                if (operator === '') {
+                    operator = '%';
+                    processValue();
+                }else {
+                    processValue();
+                    operator = '%';
+                }
+                break;
+
+            case 'divide':
+                if (operator === '') {
+                    operator = '\u00f7';
+                    processValue();
+                }else {
+                    processValue();
+                    operator = '\u00f7';
+                }
+                break;
+
+            case 'btn-x':
+                if (operator === '') {
+                    operator = 'x';
+                    processValue();
+                }else {
+                    processValue();
+                    operator = 'x';
+                }
+                break; 
+
+            case 'minus':
+                if (operator === '') {
+                    operator = '-';
+                    processValue();
+                }else {
+                    processValue();
+                    operator = '-';
+                }
+                break;    
+
+            case 'add':
+                if (operator === '') {
+                    operator = '+';
+                    processValue();
+                }else {
+                    processValue();
+                    operator = '+';
+                }
+                break;
+
+            case 'equal':
+                storeDisplayValue();
+                operate(operator, displayValue);
+                displayTotal();
+                clearDisplayValue();
+                isCalculating = false;
+                break;
+        }
+        console.log(displayValue);
+        console.log(total);
+        console.log(operator);
+    });
+});
+
+
+
+// Determines if current value should be stored or calculated
+function processValue() {
+    if (displayValue.length === 0) {
+        storeDisplayValue();
+    }else {
+        storeDisplayValue();
+        operate(operator, displayValue);
+        displayTotal();
+        clearDisplayValue();
+        displayValue.push(total);
+        isCalculating = false;
+    }
+}
+
+
+// Stores the input value from the user into an array and calls the displayHeader() function
+function storeDisplayValue() {
+    displayValue.push(screenBody.innerHTML.valueOf('div'));
+    displayHeader();
+    screenBody.textContent = '';
+}
+
+
+// Displays the total on the screen
+function displayTotal(){
+    screenBody.textContent = total;
+}
+
+
+// Clears the array storing the values
+function clearDisplayValue(){
+    displayValue.length = 0;
+}
+
+
+// Displays the current operation in the header area
+function displayHeader() {
+    if (displayValue.length === 1){
+        screenHead.textContent = `${displayValue[0]} ${operator}`;
+    }else if (displayValue.length === 2) {
+        screenHead.textContent = `${displayValue[0]} ${operator} ${displayValue[1]}`;
+    }else {
+        screenHead.textContent = '';
+    }
+}
+
+
+// Clears screen and resets calculator
+function clear(){
+    screenBody.textContent = '';
+    screenHead.textContent = '';
+    operator = '';
+    total = 0;
+    displayValue.length = 0;
+}
 
 
 // Operate function that calls the correct calculation function
 // based on the user input
-function operate(operator) {
-    let operand1 = input1;
-    let operand2 = input2;
+function operate(operatorInput, operandInput) {
 
-    switch (operator) {
+    switch (operatorInput) {
         case "+":
-            add(operand1, operand2);
+            add(operandInput);
             break;
     
         case "-":
-            subtract(operand1, operand2);
+            subtract(operandInput);
             break;
 
-        case "*":
-            multiply(operand1, operand2);
+        case "x":
+            multiply(operandInput);
             break;
 
-        case "/":
-            divide(operand1, operand2);
+        case "\u00f7":
+            divide(operandInput);
             break;
             
         case "%":
-            percent(operand1);
+            percent(operandInput);
             break;
     }
     return total;
 }
 
-console.log("additon function: " + operate("+"));
-console.log("subtraction function: " + operate("-"));
-console.log("multiply function: " + operate("*"));
-console.log("divide function: " + operate("/"));
-console.log("percentage function: " + operate("%"));
-
 
 /******************** Math functions ********************/
 /********************************************************/
 // Addition function
-function add(operand1, operand2) {
-    total = operand1 + operand2;
+function add(operand) {
+    total = operand.reduce((a, b) => Number(a) + Number(b));
 }
 
 // Subtraction function
-function subtract(operand1, operand2) {
-    total = operand1 - operand2;
+function subtract(operand) {
+    total = operand.reduce((a, b) => Number(a) - Number(b));
 }
 
 // Multiply function
-function multiply(operand1, operand2) {
-    total = operand1 * operand2;
+function multiply(operand) {
+    total = operand.reduce((a, b) => Number(a) * Number(b));
 }
 
 // Division function
-function divide(operand1, operand2) {
-    total = operand1 / operand2;
+function divide(operand) {
+    total = operand.reduce((a, b) => Number(a) / Number(b));
 }
 
 // Percentage function 
-function percent(operand1) {
+function percent(operand) {
     total = operand1 * 0.01;
 }
 /********************************************************/
