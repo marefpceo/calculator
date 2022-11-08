@@ -182,6 +182,7 @@ function storeDisplayValue() {
 
 // Displays the total on the screen
 function displayTotal(){
+    total = +total.toFixed(10);
     screenBody.textContent = total;
 }
 
@@ -217,7 +218,7 @@ function clear(){
 // Operate function that calls the correct calculation function
 // based on the user input
 function operate(operatorInput, operandInput) {
-
+    
     switch (operatorInput) {
         case "+":
             add(operandInput);
@@ -243,6 +244,18 @@ function operate(operatorInput, operandInput) {
 }
 
 
+function errorCheck(checkValue){
+    let checkArray = checkValue;
+    let find = checkArray.find(element => element === '');
+
+    if (find === '') {
+        clearDisplayValue();
+        screenBody.textContent = 'error';
+    }else {
+        return;
+    }    
+}
+
 /******************** Math functions ********************/
 /********************************************************/
 // Addition function
@@ -257,7 +270,7 @@ function subtract(operand) {
 
 // Multiply function
 function multiply(operand) {
-    total = operand.reduce((a, b) => ((Number(a) * 10) * (Number(b) * 10)) / 100);
+        total = operand.reduce((a, b) => ((Number(a) * 10) * (Number(b) * 10)) / 100);
 }
 
 // Division function
