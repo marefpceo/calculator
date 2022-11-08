@@ -7,6 +7,7 @@ let displayValue = [];
 let total = 0;
 let operator = '';
 let isCalculating = true;
+let isDecimal = false;
 
 
 
@@ -62,11 +63,27 @@ buttons.forEach((button) => {
                 screenBody.textContent += '9';
                 break;    
 
+            case 'pos-neg':
+                let sign = screenBody.innerHTML.valueOf();
+                if (sign.charAt(0) !== '-'){
+                    screenBody.textContent = ('-' + sign) ;
+                }else {
+                    screenBody.textContent = sign.substring(1);
+                }
+                break;
+                
             case 'decimal':
-                screenBody.textContent += '.';
+                if(isDecimal === false){
+                    screenBody.textContent += '.';
+                    isDecimal = true;
+                }else {
+
+                    return;
+                }                
                 break;    
 
             case 'percent':
+                isDecimal = false;
                 if (operator === '') {
                     operator = '%';
                     storeDisplayValue();
@@ -82,6 +99,7 @@ buttons.forEach((button) => {
                 break;
 
             case 'divide':
+                isDecimal = false;
                 if (operator === '' || operator === '%') {
                     operator = '\u00f7';
                     processValue();
@@ -92,6 +110,7 @@ buttons.forEach((button) => {
                 break;
 
             case 'btn-x':
+                isDecimal = false;
                 if (operator === '' || operator === '%') {
                     operator = 'x';
                     processValue();
@@ -102,6 +121,7 @@ buttons.forEach((button) => {
                 break; 
 
             case 'minus':
+                isDecimal = false;
                 if (operator === '' || operator === '%') {
                     operator = '-';
                     processValue();
@@ -112,6 +132,7 @@ buttons.forEach((button) => {
                 break;    
 
             case 'add':
+                isDecimal = false;
                 if (operator === '' || operator === '%') {
                     operator = '+';
                     processValue();
