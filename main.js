@@ -62,10 +62,19 @@ buttons.forEach((button) => {
                 screenBody.textContent += '9';
                 break;    
 
-            case '%':
+            case 'decimal':
+                screenBody.textContent += '.';
+                break;    
+
+            case 'percent':
                 if (operator === '') {
                     operator = '%';
-                    processValue();
+                    storeDisplayValue();
+                    operate(operator, displayValue);
+                    displayTotal();
+                    clearDisplayValue();
+                    displayValue.push(total);
+                    isCalculating = false;
                 }else {
                     processValue();
                     operator = '%';
@@ -73,7 +82,7 @@ buttons.forEach((button) => {
                 break;
 
             case 'divide':
-                if (operator === '') {
+                if (operator === '' || operator === '%') {
                     operator = '\u00f7';
                     processValue();
                 }else {
@@ -83,7 +92,7 @@ buttons.forEach((button) => {
                 break;
 
             case 'btn-x':
-                if (operator === '') {
+                if (operator === '' || operator === '%') {
                     operator = 'x';
                     processValue();
                 }else {
@@ -93,7 +102,7 @@ buttons.forEach((button) => {
                 break; 
 
             case 'minus':
-                if (operator === '') {
+                if (operator === '' || operator === '%') {
                     operator = '-';
                     processValue();
                 }else {
@@ -103,7 +112,7 @@ buttons.forEach((button) => {
                 break;    
 
             case 'add':
-                if (operator === '') {
+                if (operator === '' || operator === '%') {
                     operator = '+';
                     processValue();
                 }else {
@@ -125,7 +134,6 @@ buttons.forEach((button) => {
         console.log(operator);
     });
 });
-
 
 
 // Determines if current value should be stored or calculated
@@ -238,7 +246,7 @@ function divide(operand) {
 
 // Percentage function 
 function percent(operand) {
-    total = operand1 * 0.01;
+    total = Number(operand) * 0.01;
 }
 /********************************************************/
 /********************************************************/
