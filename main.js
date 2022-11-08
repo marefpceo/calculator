@@ -77,7 +77,6 @@ buttons.forEach((button) => {
                     screenBody.textContent += '.';
                     isDecimal = true;
                 }else {
-
                     return;
                 }                
                 break;    
@@ -148,6 +147,7 @@ buttons.forEach((button) => {
                 displayTotal();
                 clearDisplayValue();
                 isCalculating = false;
+                isDecimal = false;
                 break;
         }
         console.log(displayValue);
@@ -247,17 +247,17 @@ function operate(operatorInput, operandInput) {
 /********************************************************/
 // Addition function
 function add(operand) {
-    total = operand.reduce((a, b) => Number(a) + Number(b));
+    total = operand.reduce((a, b) => ((Number(a) * 10) + (Number(b) * 10)) / 10);
 }
 
 // Subtraction function
 function subtract(operand) {
-    total = operand.reduce((a, b) => Number(a) - Number(b));
+    total = operand.reduce((a, b) => ((Number(a) * 10) - (Number(b) * 10)) / 10);
 }
 
 // Multiply function
 function multiply(operand) {
-    total = operand.reduce((a, b) => Number(a) * Number(b));
+    total = operand.reduce((a, b) => ((Number(a) * 10) * (Number(b) * 10)) / 100);
 }
 
 // Division function
