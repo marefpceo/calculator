@@ -19,7 +19,7 @@ buttons.forEach((button) => {
             isCalculating = true;
         }
 
-        if(screenBody.innerHTML.toString() === 'error'){
+        if(screenBody.innerHTML.toString() === 'really???'){
             clear();            
         }
 
@@ -187,10 +187,10 @@ function storeDisplayValue() {
 function displayTotal(){
     if(isNaN(total)){
         total = '';
-        screenBody.textContent = 'error';
+        screenBody.textContent = 'really???';
     }else {
         total = +total.toFixed(10);
-    screenBody.textContent = total;
+        screenBody.textContent = total;
     }
 }
 
@@ -273,7 +273,7 @@ function multiply(operand) {
 // Division function
 function divide(operand) {
     if (operand[1] === '0'){
-        screenBody.textContent = 'error';
+        screenBody.textContent = 'really???';
         total = '';
     }else if(operand[1] === ''){
         return;
