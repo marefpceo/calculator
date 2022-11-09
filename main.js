@@ -19,6 +19,10 @@ buttons.forEach((button) => {
             isCalculating = true;
         }
 
+        if(screenBody.innerHTML.toString() === 'error'){
+            clear();            
+        }
+
         switch (button.id) {
             case 'clear':
                 clear();
@@ -83,17 +87,14 @@ buttons.forEach((button) => {
 
             case 'percent':
                 isDecimal = false;
-                if (operator === '') {
-                    operator = '%';
-                    storeDisplayValue();
-                    operate(operator, displayValue);
-                    displayTotal();
-                    clearDisplayValue();
-                    displayValue.push(total);
-                    isCalculating = false;
-                }else {
+                if(operator === '+' || operator === '-' || operator === '\u00f7'){
                     processValue();
                     operator = '%';
+                    clearDisplayValue();
+                    processValue();
+                }else {
+                    operator = '%';
+                    processValue();
                 }
                 break;
 
@@ -142,12 +143,13 @@ buttons.forEach((button) => {
                 break;
 
             case 'equal':
-                storeDisplayValue();
-                operate(operator, displayValue);
-                displayTotal();
-                clearDisplayValue();
-                isCalculating = false;
-                isDecimal = false;
+                if(displayValue.length < 1){
+                    break;
+                }else {
+                    processValue();
+                    clearDisplayValue();
+                    isDecimal = false;
+                }
                 break;
         }
         console.log(displayValue);
@@ -157,9 +159,10 @@ buttons.forEach((button) => {
 });
 
 
-// Determines if current value should be stored or calculated
+// Determines if current value should be stored or calculated based on the 
+// lenght of displayValue array
 function processValue() {
-    if (displayValue.length === 0) {
+    if (displayValue.length === 0 && operator !== '%') {
         storeDisplayValue();
     }else {
         storeDisplayValue();
@@ -182,8 +185,13 @@ function storeDisplayValue() {
 
 // Displays the total on the screen
 function displayTotal(){
-    total = +total.toFixed(10);
+    if(isNaN(total)){
+        total = '';
+        screenBody.textContent = 'error';
+    }else {
+        total = +total.toFixed(10);
     screenBody.textContent = total;
+    }
 }
 
 
@@ -215,7 +223,7 @@ function clear(){
 }
 
 
-// Operate function that calls the correct calculation function
+// Operate function that calls which function to use for performing
 // based on the user input
 function operate(operatorInput, operandInput) {
     
@@ -244,17 +252,6 @@ function operate(operatorInput, operandInput) {
 }
 
 
-function errorCheck(checkValue){
-    let checkArray = checkValue;
-    let find = checkArray.find(element => element === '');
-
-    if (find === '') {
-        clearDisplayValue();
-        screenBody.textContent = 'error';
-    }else {
-        return;
-    }    
-}
 
 /******************** Math functions ********************/
 /********************************************************/
@@ -270,12 +267,20 @@ function subtract(operand) {
 
 // Multiply function
 function multiply(operand) {
-        total = operand.reduce((a, b) => ((Number(a) * 10) * (Number(b) * 10)) / 100);
+    total = operand.reduce((a, b) => ((Number(a) * 10) * (Number(b) * 10)) / 100);
 }
 
 // Division function
 function divide(operand) {
-    total = operand.reduce((a, b) => Number(a) / Number(b));
+    if (operand[1] === '0'){
+        screenBody.textContent = 'error';
+        total = '';
+    }else if(operand[1] === ''){
+        return;
+    }
+    else {
+        total = operand.reduce((a, b) => Number(a) / Number(b));
+    }
 }
 
 // Percentage function 
