@@ -15,17 +15,22 @@ button {
     width: 90px;
     height: 90px;
     margin: 3px 2px;
-    box-shadow: 1px 1px 1px 1px #00cc34;
+    /* box-shadow: 1px 1px 1px 1px #00cc34; */
 }
 
-#clear {
+#clear, #equal,
+#percent, #divide,
+#minus, #btn-x,
+#add {
     background-color: #00cc34;
     color:#333333;
     font-weight: 800;
 }
-#zero {
-    grid-column: 1 / span 2;
-    width: auto;
+
+#back {
+    background-color: #e92626;
+    color: #ededed;
+    font-weight: 800;
 }
 
 .container {

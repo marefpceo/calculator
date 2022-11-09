@@ -27,6 +27,13 @@ buttons.forEach((button) => {
             case 'clear':
                 clear();
                 break;
+
+            case 'back':
+                let currentVal = screenBody.innerHTML.valueOf();
+                str = currentVal.slice(0, -1);
+                screenBody.textContent = str;
+                break;
+                
             case 'zero':
                 screenBody.textContent += '0';
                 break;
