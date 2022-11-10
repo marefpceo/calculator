@@ -159,9 +159,6 @@ buttons.forEach((button) => {
                 }
                 break;
         }
-        console.log(displayValue);
-        console.log(total);
-        console.log(operator);
     });
 });
 
