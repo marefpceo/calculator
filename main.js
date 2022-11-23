@@ -104,7 +104,7 @@ buttons.forEach((button) => {
 
 // Sets the operator
 function setOperator(keyValue){
-    if(keyValue === '*') {
+    if (keyValue === '*') {
         operator = 'x';
     }else if(keyValue === '/'){
         operator = '\u00f7'
@@ -113,7 +113,7 @@ function setOperator(keyValue){
     }
 }
 
-// 
+// Process calculations for addition, subtraction, mulitiplication and division
 function operatorProcess(inputValue){
     isDecimal = false;
     if (operator === '' || operator === '%') {
@@ -127,7 +127,7 @@ function operatorProcess(inputValue){
 
 // Logic for equal button
 function calculateEqual(){
-    if(displayValue.length < 1){
+    if (displayValue.length < 1){
         return;
     }else {
         processValue();
@@ -138,11 +138,11 @@ function calculateEqual(){
 
 // Checks and sets the current state of the calculation and clears any errors 
 function preCalculationCheck(){
-    if(isCalculating === false) {
+    if (isCalculating === false) {
         screenBody.textContent = '';
         isCalculating = true;
     }
-    if(screenBody.innerHTML.toString() === 'really???'){
+    if (screenBody.innerHTML.toString() === 'really???'){
         clear();            
     }
 }
@@ -170,7 +170,7 @@ function storeDisplayValue() {
 
 // Displays the total on the screen and limits the number of characters
 function displayTotal(){
-    if(isNaN(total)){
+    if (isNaN(total)){
         clear();
         screenBody.textContent = 'really???';
     }else {
@@ -184,7 +184,7 @@ function displayHeader() {
     screenHead.textContent = '';
     if (displayValue.length === 1){
         screenHead.textContent = `${displayValue[0]} ${operator}`;
-    }else if(displayValue.length === 2) {
+    }else if (displayValue.length === 2) {
         screenHead.textContent = `${displayValue[0]} ${operator} ${displayValue[1]}`;
     }else {
         screenHead.textContent = '';
@@ -261,5 +261,3 @@ function divide(operand) {
 function percent(operand) {
     total = Number(operand) * 0.01;
 }
-/********************************************************/
-/********************************************************/
