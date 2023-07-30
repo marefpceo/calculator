@@ -1,8 +1,7 @@
 # Online Calculator
 
-Online basic calculator. <br><br>
+[Online Calculator Live Link](https://marefpceo.github.io/calculator/)
 
-***
 
 ## Performs the following calculations:
 
